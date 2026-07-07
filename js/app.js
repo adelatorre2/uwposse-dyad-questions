@@ -13,36 +13,31 @@
 
   /* Brand-anchored category palette. Colors are assigned to categories in
      order of first appearance in the spreadsheet. It leads with the Badger
-     reds and adds accessible complementary accents so 7+ categories stay
-     visually distinct while still reading as UW-branded. If there are more
-     categories than colors, it wraps around. */
+     reds and adds accessible complementary accents so ~11 categories stay
+     visually distinct while still reading as UW-branded. Every color is dark
+     enough that WHITE tag text clears WCAG AA (>= 4.5:1). If there are more
+     categories than colors, it wraps around. Categories are shown as clean
+     color-coded TEXT tags (no icons/emoji), so a brand-new category added in
+     Excel renders perfectly with no extra mapping. */
   var CATEGORY_PALETTE = [
     "#C5050C", // Badger red
-    "#0E6E8C", // teal
-    "#B07A00", // gold
+    "#14607F", // teal-blue
+    "#2E7D46", // green
     "#5B3A8E", // plum
-    "#2E7D46", // forest
-    "#9B0000", // dark red
+    "#A8480B", // burnt orange
     "#334A5E", // slate
-    "#1F3A93"  // navy
+    "#A0285A", // raspberry
+    "#1F3A93", // navy
+    "#6B4423", // coffee brown
+    "#0F6E62", // pine
+    "#9B0000", // dark red (brand)
+    "#6D28D9"  // violet (spare / wraparound)
   ];
 
-  /* Optional emoji per category. Brand-new categories fall back to DEFAULT. */
-  var CATEGORY_EMOJI = {
-    "Icebreakers": "🧊",
-    "Getting to Know You": "🤝",
-    "Roots & Cities": "🏙️",
-    "Values & Identity": "🧭",
-    "Dreams & Goals": "🌟",
-    "Deeper Cuts": "🌊",
-    "Just for Fun": "🎉"
-  };
-  var DEFAULT_EMOJI = "💬";
-
   /* --------- State --------- */
-  var allQuestions = [];      // { category, depth, question, color, emoji }
+  var allQuestions = [];      // { category, depth, question }
   var categories = [];        // ordered unique category names
-  var categoryMeta = {};      // name -> { color, emoji }
+  var categoryMeta = {};      // name -> { color }
   var activeCategory = "All"; // "All" or a category name
   var activeDepth = "any";    // "any" | "warm" | "deep"
   var mode = "single";        // "single" | "browse"
@@ -155,10 +150,7 @@
       var cat = allQuestions[i].category;
       if (!categoryMeta[cat]) {
         var color = CATEGORY_PALETTE[categories.length % CATEGORY_PALETTE.length];
-        categoryMeta[cat] = {
-          color: color,
-          emoji: CATEGORY_EMOJI[cat] || DEFAULT_EMOJI
-        };
+        categoryMeta[cat] = { color: color };
         categories.push(cat);
       }
     }
@@ -202,9 +194,9 @@
     btn.className = "chip category-chip";
     btn.dataset.category = value;
     if (meta) {
+      // Color-coded text chip: a small color dot + the category name (no icons).
       btn.style.setProperty("--chip-color", meta.color);
-      btn.innerHTML = '<span class="chip-emoji" aria-hidden="true">' + meta.emoji +
-        "</span>" + escapeHtml(label);
+      btn.innerHTML = '<span class="chip-dot" aria-hidden="true"></span>' + escapeHtml(label);
     } else {
       btn.textContent = label;
     }
@@ -278,7 +270,7 @@
     }
     var q = pickRandom(pool);
     lastQuestionText = q.question;
-    var meta = categoryMeta[q.category] || { color: "#C5050C", emoji: DEFAULT_EMOJI };
+    var meta = categoryMeta[q.category] || { color: "#C5050C" };
 
     var card = $("qcard");
     card.classList.add("is-swapping");
@@ -287,7 +279,7 @@
       var tag = $("single-cat-tag");
       tag.style.display = "";
       tag.style.background = meta.color;
-      tag.textContent = meta.emoji + "  " + q.category;
+      tag.textContent = q.category;
 
       $("single-depth-dots").innerHTML = depthDots(q.depth, meta.color);
       $("single-question").textContent = q.question;
@@ -324,7 +316,7 @@
       var header = document.createElement("div");
       header.className = "cat-group-header";
       header.innerHTML =
-        '<span class="cat-emoji" aria-hidden="true">' + meta.emoji + "</span>" +
+        '<span class="cat-swatch" aria-hidden="true"></span>' +
         "<h2>" + escapeHtml(cat) + "</h2>" +
         '<span class="cat-count">' + items.length + "</span>";
       group.appendChild(header);

@@ -28,3 +28,6 @@ venv/
 *.docx
 *.pptx
 *.csv
+
+# WNRS source material (local inspiration only — never commit to the public repo)
+/data/wnrs/

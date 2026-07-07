@@ -69,6 +69,9 @@
     <!-- Status / error region (kept in DOM so we never show a blank page) -->
     <div class="status" id="status" role="status" aria-live="polite"></div>
 
+    <!-- Gentle reassurance (matters for the deeper prompts) -->
+    <p class="reassure">Skipping any question is always okay.</p>
+
     <!-- MODE 1: One at a time (default) -->
     <section id="single-mode" class="single-mode" aria-label="One question at a time">
       <article class="qcard" id="qcard">
@@ -82,7 +85,7 @@
       <div class="single-actions">
         <button class="btn btn-primary" id="next-btn">Next question</button>
         <button class="btn btn-ghost" id="shuffle-btn" title="Clear filters and reshuffle">
-          ↺ Shuffle / reset
+          Shuffle / reset
         </button>
       </div>
       <p class="count-hint" id="single-count"></p>
@@ -96,7 +99,15 @@
 
   <footer class="site-footer">
     <p class="footer-main">UW–Madison Posse · SOAR 2026</p>
-    <p class="footer-hint">Questions can be added by editing <code>data/questions.xlsx</code>.</p>
+
+    <div class="footer-disclaimer">
+      <p>An independent project by
+        <a href="https://adelatorre2.github.io" target="_blank" rel="noopener">Alejandro De La Torre</a>.
+        The views expressed here do not represent the UW–Madison Posse Program.</p>
+      <p>Questions or feedback? <a href="mailto:adelatorre2@wisc.edu">adelatorre2@wisc.edu</a></p>
+    </div>
+
+    <p class="footer-hint">New questions can be added in <code>data/questions.xlsx</code>.</p>
   </footer>
 
   <script src="js/app.js" defer></script>

@@ -151,7 +151,15 @@ body {
   border-color: var(--chip-color, var(--ink));
   color: var(--white);
 }
-.chip .chip-emoji { font-size: 1rem; }
+/* Small color dot so each category chip is scannable even when inactive */
+.chip .chip-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--chip-color, var(--ink));
+  flex: 0 0 auto;
+}
+.category-chip.is-active .chip-dot { background: var(--white); }
 
 /* ---------------- Status / errors ---------------- */
 .status { margin: 4px 0; }
@@ -283,7 +291,13 @@ body {
   padding-bottom: 8px;
   border-bottom: 2px solid var(--gray);
 }
-.cat-group-header .cat-emoji { font-size: 1.25rem; }
+.cat-group-header .cat-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  background: var(--cat-color, var(--ink));
+  flex: 0 0 auto;
+}
 .cat-group-header h2 {
   font-family: var(--font-head);
   font-weight: 900;
@@ -323,11 +337,40 @@ body {
   margin: 0 0 4px;
   color: var(--ink);
 }
-.footer-hint { margin: 0; font-size: 0.78rem; }
+/* Fine-print disclaimer — clearly separated, unobtrusive */
+.footer-disclaimer {
+  max-width: 42ch;
+  margin: 16px auto 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--gray);
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.footer-disclaimer p { margin: 0 0 5px; }
+.footer-disclaimer a {
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.footer-disclaimer a:hover { color: var(--dark-red); }
+.footer-hint {
+  margin: 10px 0 0;
+  font-size: 0.7rem;
+  opacity: 0.85;
+}
 .footer-hint code {
   background: var(--gray);
   padding: 1px 5px;
   border-radius: 5px;
+}
+
+/* Gentle reassurance line above the question card (both modes) */
+.reassure {
+  text-align: center;
+  margin: 0 0 14px;
+  font-size: 0.82rem;
+  color: var(--muted);
 }
 
 /* ---------------- Motion preferences ---------------- */
