@@ -1,0 +1,30 @@
+# ============================================================
+#  This repo is PUBLIC. It must contain the web app + questions ONLY.
+#  Never commit rosters, surveys, face sheets, flight manifests,
+#  scholar names, or any personal data.
+# ============================================================
+
+# macOS
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# Editor / OS cruft
+*~
+*.swp
+*.tmp
+Thumbs.db
+
+# Python (from the throwaway xlsx/QR generation scripts)
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Safety net: keep common PII file types out of the public repo.
+# (The questions data lives in data/questions.xlsx, which is force-added.)
+*.pdf
+*.docx
+*.pptx
+*.csv
